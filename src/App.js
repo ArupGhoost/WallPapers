@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+
+import { useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import About from './About';
 import './App.css';
+import Bikes from './Bikes';
+import Cars from './Cars';
+import Home from './Home';
+import MainDropDown from './MainDropDown';
+import Nature from './Nature';
+import NavLinks from './NavLinks';
+import SignIn from './SignIn';
+
 
 function App() {
-  return (
+
+  const[hoverdown, sethoverDown] = useState(false);
+  const hoverChange = () => {
+    sethoverDown(!hoverdown);
+  } 
+
+   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <NavLinks hoverdown={hoverdown} hoverChange={hoverChange}/> 
+        
+        <MainDropDown hoverdown={hoverdown} hoverChange={hoverChange}/>
+        
+        <Switch>
+          <Route path='/' exact component={Home}/>
+          <Route path='/cars' component={Cars}/>
+          <Route path='/nature' component={Nature} />
+          <Route path='/bikes' component={Bikes}/>
+          <Route path='/about' component={About}/>
+          <Route path='/signin' component={SignIn}/>
+        </Switch>
+
     </div>
   );
 }
